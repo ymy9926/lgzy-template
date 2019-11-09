@@ -1,11 +1,20 @@
 <template>
-  <div class="index-warpper">
-    <TopBar />
-    <TopMenu />
-    <div class="main">
-      <el-alert :title="error" type="error" effect="dark" class="error"></el-alert>
-    </div>
-  </div>
+  <el-container class="index-warpper">
+    <el-header>
+      <TopBar />
+    </el-header>
+    <el-container>
+      <el-aside width="200px">
+        <LeftMenu />
+        <el-button type="primary" size="small">设备检测</el-button>
+      </el-aside>
+      <el-main>
+        <div class="bg">
+          <router-view></router-view>
+        </div>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
@@ -20,38 +29,45 @@ export default {
     LeftMenu
   },
   data() {
-    //这里存放数据
-    return {
-      error:
-        "Your account balance is less than 5 points. In order to learn Chinese in succession, please Top-up in time ~"
-    };
-  },
-  //监听属性 类似于data概念
-  computed: {},
-  //监控data中的数据变化
-  watch: {},
-  //方法集合
-  methods: {},
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
-  //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {}
+    return {};
+  }
 };
 </script>
 <style scoped lang='stylus'>
 @import '../../assets/theme-default/index/index.styl';
+@import '../../assets/theme-default/common/stylus/mixin.styl';
 
 .index-warpper {
-  .main {
-    width: 1000px;
-    margin: 0 auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 
-    .error {
-      margin: 10px 0;
-      background-color: rgba(245, 108, 108, 0.5);
-      color: #000;
-      font-weight: 300;
-      padding: 17px;
+  .el-header {
+    padding: 0px;
+  }
+
+  .el-container {
+    overflow-y: auto;
+
+    .el-aside {
+      bg-color-brand(0.96);
+      text-align: center;
+
+      .el-button {
+        margin-top: 30px;
+        width: 60%;
+        bg-color-brand(0.96);
+        border: 1px solid #fff;
+      }
+    }
+
+    .bg {
+      background-color: #fff;
+      min-height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
     }
   }
 }

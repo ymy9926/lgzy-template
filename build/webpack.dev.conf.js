@@ -54,16 +54,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
     //第二步找到devServer,在里面添加
     before(app) {
-      app.get('/api/test', (req, res) => {
-        console.log(req);
+      app.get('/api/register', (req, res) => {
         res.json({
           errno: 0,
-          data: { errno: 0, msg: '', result: {} }
+          msg: '注册成功！'
         })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
       }),
         app.post('/api/login', (req, res) => {
-          console.log(req);
-          res.json({ errno: 0 });
+          res.json({ errno: 0, msg: '登录成功！' });
         });
     }
   },

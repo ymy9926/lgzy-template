@@ -11,5 +11,5 @@ export default {
 </script>
 
 <style lang="stylus">
-@import "./assets/theme-default/common/stylus/base.styl";
+@import './assets/theme-default/common/stylus/base.styl';
 </style>
