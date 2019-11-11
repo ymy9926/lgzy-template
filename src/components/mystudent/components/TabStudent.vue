@@ -1,7 +1,7 @@
 <template>
   <div class="tab-sutdent-warpper">
-    <el-input placeholder="请输入班级名字" width="248" v-model="student.search">
-      <template slot="append" class="lg-btn">查询</template>
+    <el-input placeholder="请输入学生名字" v-model="student.search">
+      <el-button slot="append" class="lg-btn" @click="search()">查询</el-button>
     </el-input>
     <div class="card-template" v-for="(item,key) in studentList" :key="key">
       <div class="left">
@@ -30,112 +30,7 @@ export default {
       student: {
         search: ""
       },
-      studentList: [
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        }
-      ]
+      studentList: []
     };
   },
   //监听属性 类似于data概念
@@ -143,11 +38,27 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    search() {
+      this.$http
+        .get("api/getMyStudentList", {
+          params: { keyword: this.student.search }
+        })
+        .then(({ status, data }) => {
+          if (status === 200 && data.errno === 0) {
+            this.studentList = data.data;
+          } else {
+            alert(data.msg);
+          }
+        });
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {}
+  mounted() {
+    this.search();
+  }
 };
 </script>
 <style lang='stylus'>

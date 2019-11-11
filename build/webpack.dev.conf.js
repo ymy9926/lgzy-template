@@ -62,7 +62,117 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       }),
         app.post('/api/login', (req, res) => {
           res.json({ errno: 0, msg: '登录成功！' });
-        });
+        }),
+        app.get('/api/getMyStudentList', (req, res) => {
+          res.json({
+            errno: 0, msg: '', data: [
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              },
+              {
+                avatarUrl: "/static/images/timg.jpeg",
+                name: "StudentA",
+                sex: "男",
+                age: "11",
+                country: "新加坡",
+                cost: 10,
+                surplus: 20,
+                mycost: 10,
+                grade: "高级版",
+                level: "level1",
+                lesson: "lesson1"
+              }
+            ]
+          });
+        })
     }
   },
   plugins: [
