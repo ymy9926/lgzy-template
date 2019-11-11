@@ -1,152 +1,127 @@
 <template>
   <div class="tab-sutdent-warpper">
-    <el-input placeholder="请输入班级名字" width="248" v-model="student.search">
-      <template slot="append" class="lg-btn">查询</template>
+    <el-input placeholder="请输入班级名字" v-model="myClass.keyword">
+      <el-button slot="append" class="lg-btn" @click="search()">查询</el-button>
     </el-input>
-    <div class="card-template" v-for="(item,key) in studentList" :key="key">
-      <div class="left">
-        <el-image :src="item.avatarUrl" fit="cover"></el-image>
-      </div>
+    <div class="card-template" v-for="(item,key) in classList.rows" :key="key">
       <div class="center">
-        <div class="name">{{item.num}} - {{item.name}}</div>
+        <div class="name">{{item.No}}-{{item.Name}}</div>
+        <div class="info">
+          学生：
+          <span
+            class="student"
+            :class="{'isdot':student.dot}"
+            v-for="(student,$key) in item.students"
+            :key="$key"
+          >{{student.name}}</span>
+        </div>
         <div class="info">{{item.grade}} {{item.level}} {{item.lesson}}</div>
-        <div class="info">{{item.sex}} {{item.age}}岁 {{item.country}}</div>
-        <div class="info">跟我待上 {{item.cost}}节；跟我已上 {{item.mycost}}节；账户余额 {{item.surplus}}</div>
       </div>
       <div class="right">
-        <el-button type="primary" size="small" plain>调整进度</el-button>
+        <el-button type="primary" size="small" @click="adjustmentProgress(item)" plain>调整班级进度</el-button>
       </div>
     </div>
+    <el-pagination
+      background
+      layout="prev,pager,next,sizes,jumper"
+      :page-size="myClass.pageSize"
+      :total="classList.total"
+      :current-page="myClass.pageIndex"
+      @size-change="pageSizeChange"
+      @current-change="pageIndexChange"
+    ></el-pagination>
+
+    <ModifyProgress
+      :form="myClass"
+      :open="isProgress"
+      @colse-progress="colseProgress"
+      @submit="modifyProgress"
+    />
   </div>
 </template>
 
 <script>
+import ModifyProgress from "./ModifyProgress";
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {},
+  components: { ModifyProgress },
   data() {
     //这里存放数据
     return {
-      student: {
-        search: ""
+      myClass: {
+        keyword: "",
+        pageSize: 10,
+        pageIndex: 1
       },
-      studentList: [
-        {
-          num: "班级编号",
-          name: "班级名字",
-          students: [{name:'StudentA',dot:false},{name:'StudentA',dot:true},{name:'StudentA',dot:false}],
-          
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        },
-        {
-          avatarUrl: require("../../../assets/theme-default/images/mystudent/timg.jpeg"),
-          name: "StudentA",
-          sex: "男",
-          age: "11",
-          country: "新加坡",
-          cost: 10,
-          surplus: 20,
-          mycost: 10,
-          grade: "高级版",
-          level: "level1",
-          lesson: "lesson1"
-        }
-      ]
+      classList: { rows: [], total: 0 },
+      editClass: {
+        level: "",
+        lesson: ""
+      },
+      isProgress: false
     };
   },
-  //监听属性 类似于data概念
-  computed: {},
-  //监控data中的数据变化
-  watch: {},
   //方法集合
-  methods: {},
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  methods: {
+    adjustmentProgress(student) {
+      this.editClass = student;
+      this.isProgress = true;
+    },
+    search() {
+      this.$http
+        .get("api/getClassList", {
+          params: this.student
+        })
+        .then(({ status, data }) => {
+          console.log(status, data);
+          if (status === 200 && data.errno === 0) {
+            console.log(data);
+            this.classList = data.data;
+          } else {
+            alert(data.msg);
+          }
+        });
+    },
+    colseProgress(isShow) {
+      this.isProgress = isShow;
+    },
+    modifyProgress(form, isShow) {
+      this.$http
+        .post("api/modifyclassprogress", {
+          params: form
+        })
+        .then(({ status, data }) => {
+          if (status === 200 && data.errno === 0) {
+            this.isProgress = isShow;
+            this.$notify({
+              title: "成功",
+              message: data.msg,
+              type: "success"
+            });
+          } else {
+            alert(data.msg);
+          }
+        });
+    },
+    pageSizeChange(size) {
+      this.student.pageSize = size;
+      this.search();
+    },
+    pageIndexChange(index) {
+      this.student.pageIndex = index;
+      this.search();
+    },
+    pageChange() {
+      this.search();
+    }
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {}
+  mounted() {
+    this.search();
+  }
 };
 </script>
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @import '../../../assets/theme-default/common/stylus/mixin.styl';
 
 .tab-sutdent-warpper {
@@ -156,10 +131,12 @@ export default {
   .el-input {
     width: 248px;
 
-    .el-input-group__append {
+    .lg-btn {
       bg-color-brand();
       color: #fff;
       border: none;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
     }
   }
 
@@ -170,17 +147,6 @@ export default {
     padding: 20px;
     display: flex;
     margin-top: 20px;
-
-    .left {
-      flex: 0 130px;
-
-      .el-image {
-        width: 88px;
-        height: 88px;
-        border: 1px solid rgba(248, 248, 248, 1);
-        border-radius: 44px;
-      }
-    }
 
     .center {
       flex: 1;
@@ -200,6 +166,23 @@ export default {
         font-weight: 400;
         color: rgba(102, 102, 102, 1);
         line-height: 20px;
+
+        .student {
+          padding: 0 3px;
+
+          &:after {
+            content: '、';
+          }
+
+          &:last-child:after {
+            content: '';
+          }
+        }
+
+        .isdot:before {
+          content: '*';
+          color: red;
+        }
       }
     }
 
@@ -213,6 +196,11 @@ export default {
         width: 100%;
       }
     }
+  }
+
+  .el-pagination {
+    margin-top: 20px;
+    text-align: right;
   }
 }
 </style>

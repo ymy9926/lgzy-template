@@ -5,7 +5,7 @@
     </el-tab-pane>
     <el-tab-pane label="班级" name="second">
       <TabClass />
-    ß</el-tab-pane>
+    </el-tab-pane>
   </el-tabs>
 </template>
 

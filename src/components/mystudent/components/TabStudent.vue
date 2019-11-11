@@ -1,9 +1,9 @@
 <template>
   <div class="tab-sutdent-warpper">
-    <el-input placeholder="请输入学生名字" v-model="student.search">
+    <el-input placeholder="请输入学生名字" v-model="student.keyword">
       <el-button slot="append" class="lg-btn" @click="search()">查询</el-button>
     </el-input>
-    <div class="card-template" v-for="(item,key) in studentList" :key="key">
+    <div class="card-template" v-for="(item,key) in studentList.rows" :key="key">
       <div class="left">
         <el-image :src="item.avatarUrl" fit="cover"></el-image>
       </div>
@@ -14,35 +14,59 @@
         <div class="info">跟我待上 {{item.cost}}节；跟我已上 {{item.mycost}}节；账户余额 {{item.surplus}}</div>
       </div>
       <div class="right">
-        <el-button type="primary" size="small" plain>调整进度</el-button>
+        <el-button type="primary" size="small" @click="adjustmentProgress(item)" plain>调整进度</el-button>
       </div>
     </div>
+    <el-pagination
+      background
+      layout="prev,pager,next,sizes,jumper"
+      :page-size="student.pageSize"
+      :total="studentList.total"
+      :current-page="student.pageIndex"
+      @size-change="pageSizeChange"
+      @current-change="pageIndexChange"
+    ></el-pagination>
+
+    <ModifyProgress
+      :form="editStudent"
+      :open="isProgress"
+      @colse-progress="colseProgress"
+      @submit="modifyProgress"
+    />
   </div>
 </template>
 
 <script>
+import ModifyProgress from "./ModifyProgress";
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {},
+  components: { ModifyProgress },
   data() {
     //这里存放数据
     return {
       student: {
-        search: ""
+        keyword: "",
+        pageSize: 10,
+        pageIndex: 1
       },
-      studentList: []
+      studentList: [],
+      editStudent: {
+        level: "",
+        lesson: ""
+      },
+      isProgress: false
     };
   },
-  //监听属性 类似于data概念
-  computed: {},
-  //监控data中的数据变化
-  watch: {},
   //方法集合
   methods: {
+    adjustmentProgress(student) {
+      this.editStudent = student;
+      this.isProgress = true;
+    },
     search() {
       this.$http
         .get("api/getMyStudentList", {
-          params: { keyword: this.student.search }
+          params: this.student
         })
         .then(({ status, data }) => {
           if (status === 200 && data.errno === 0) {
@@ -51,17 +75,47 @@ export default {
             alert(data.msg);
           }
         });
+    },
+    colseProgress(isShow) {
+      this.isProgress = isShow;
+    },
+    modifyProgress(form, isShow) {
+      this.$http
+        .post("api/modifyprogress", {
+          params: form
+        })
+        .then(({ status, data }) => {
+          if (status === 200 && data.errno === 0) {
+            this.isProgress = isShow;
+            this.$notify({
+              title: "成功",
+              message: data.msg,
+              type: "success"
+            });
+          } else {
+            alert(data.msg);
+          }
+        });
+    },
+    pageSizeChange(size) {
+      this.student.pageSize = size;
+      this.search();
+    },
+    pageIndexChange(index) {
+      this.student.pageIndex = index;
+      this.search();
+    },
+    pageChange() {
+      this.search();
     }
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     this.search();
   }
 };
 </script>
-<style lang='stylus'>
+<style lang='stylus' scoped>
 @import '../../../assets/theme-default/common/stylus/mixin.styl';
 
 .tab-sutdent-warpper {
@@ -71,10 +125,12 @@ export default {
   .el-input {
     width: 248px;
 
-    .el-input-group__append {
+    .lg-btn {
       bg-color-brand();
       color: #fff;
       border: none;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
     }
   }
 
@@ -128,6 +184,11 @@ export default {
         width: 100%;
       }
     }
+  }
+
+  .el-pagination {
+    margin-top: 20px;
+    text-align: right;
   }
 }
 </style>

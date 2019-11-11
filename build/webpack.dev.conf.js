@@ -63,114 +63,237 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         app.post('/api/login', (req, res) => {
           res.json({ errno: 0, msg: '登录成功！' });
         }),
+        app.post('/api/modifyprogress', (req, res) => {
+          res.json({ errno: 0, msg: '修改成功！' });
+        }),
+        app.post('/api/modifyclassprogress', (req, res) => {
+          res.json({ errno: 0, msg: '修改成功！' });
+        }),
         app.get('/api/getMyStudentList', (req, res) => {
           res.json({
-            errno: 0, msg: '', data: [
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              },
-              {
-                avatarUrl: "/static/images/timg.jpeg",
-                name: "StudentA",
-                sex: "男",
-                age: "11",
-                country: "新加坡",
-                cost: 10,
-                surplus: 20,
-                mycost: 10,
-                grade: "高级版",
-                level: "level1",
-                lesson: "lesson1"
-              }
-            ]
+            errno: 0, msg: '', data: {
+              total: 1000, rows: [
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                },
+                {
+                  avatarUrl: "/static/images/timg.jpeg",
+                  name: "StudentA",
+                  sex: "男",
+                  age: "11",
+                  country: "新加坡",
+                  cost: 10,
+                  surplus: 20,
+                  mycost: 10,
+                  grade: "高级版",
+                  level: "level1",
+                  lesson: "lesson1"
+                }
+              ]
+            }
+          });
+        }),
+        app.get('/api/getClassList', (req, res) => {
+          res.json({
+            errno: 0, msg: '', data:
+            {
+              total: 1000,
+              rows: [
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: false },
+                    { name: "StudentC", dot: true },
+                    { name: "StudentD", dot: false }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: false },
+                    { name: "StudentC", dot: true },
+                    { name: "StudentD", dot: false }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: true },
+                    { name: "StudentC", dot: false },
+                    { name: "StudentD", dot: true }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: true },
+                    { name: "StudentC", dot: false },
+                    { name: "StudentD", dot: true }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: false },
+                    { name: "StudentC", dot: false },
+                    { name: "StudentD", dot: false }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: false },
+                    { name: "StudentC", dot: false },
+                    { name: "StudentD", dot: false }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: false },
+                    { name: "StudentC", dot: false },
+                    { name: "StudentD", dot: false }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                },
+                {
+                  No: "班级编号",
+                  Name: "班级名字",
+                  students: [
+                    { name: "StudentA", dot: false },
+                    { name: "StudentB", dot: false },
+                    { name: "StudentC", dot: false },
+                    { name: "StudentD", dot: false }
+                  ],
+                  grade: "高级版",
+                  level: "Level1",
+                  lesson: "Lesson1"
+                }
+              ]
+            }
+
           });
         })
     }
