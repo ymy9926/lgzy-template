@@ -6,15 +6,7 @@
     <div class="card-template" v-for="(item,key) in classList.rows" :key="key">
       <div class="center">
         <div class="name">{{item.No}}-{{item.Name}}</div>
-        <div class="info">
-          学生：
-          <span
-            class="student"
-            :class="{'isdot':student.dot}"
-            v-for="(student,$key) in item.students"
-            :key="$key"
-          >{{student.name}}</span>
-        </div>
+        <SutdentList :students="item.students" class="info" />
         <div class="info">{{item.grade}} {{item.level}} {{item.lesson}}</div>
       </div>
       <div class="right">
@@ -41,10 +33,11 @@
 </template>
 
 <script>
+import SutdentList from "../../plugin/StudentList";
 import ModifyProgress from "./ModifyProgress";
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: { ModifyProgress },
+  components: { ModifyProgress, SutdentList },
   data() {
     //这里存放数据
     return {
@@ -161,28 +154,12 @@ export default {
       }
 
       .info {
+        margin-top: 5px;
         height: 20px;
         font-size: 14px;
         font-weight: 400;
         color: rgba(102, 102, 102, 1);
         line-height: 20px;
-
-        .student {
-          padding: 0 3px;
-
-          &:after {
-            content: '、';
-          }
-
-          &:last-child:after {
-            content: '';
-          }
-        }
-
-        .isdot:before {
-          content: '*';
-          color: red;
-        }
       }
     }
 

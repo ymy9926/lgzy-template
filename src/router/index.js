@@ -17,6 +17,8 @@ import MyStudent from '@/components/mystudent/MyStudent' //我的学生
 import PublishTime from '@/components/publishtime/PublishTime' //发布时间
 import TeacherTraining from '@/components/teachertraining/TeacherTraining' //教师培训
 
+import UserInfo from '@/components/usercenter/userinfo'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -47,6 +49,10 @@ const router = new Router({
       path: '/register',
       name: 'register',
       component: Register
+    }, {
+      path: '/userinfo',
+      name: 'userinfo',
+      component: UserInfo
     }
   ]
 })

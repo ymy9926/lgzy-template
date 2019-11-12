@@ -1,7 +1,22 @@
 <template>
   <span class="user-warpper">
-    <el-avatar size="small" :src="avatarUrl"></el-avatar>
-    <span class="name">{{username}}</span>
+    <el-dropdown :hide-on-click="false">
+      <span class="userinfo">
+        <el-avatar size="small" :src="avatarUrl"></el-avatar>
+        <span class="name">{{username}}</span>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item>
+          <el-link href="/userinfo">个人信息</el-link>
+        </el-dropdown-item>
+        <el-dropdown-item>
+          <el-link href="/userinfo">修改密码</el-link>
+        </el-dropdown-item>
+        <el-dropdown-item>
+          <el-link href="/userinfo">退出登录</el-link>
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </span>
 </template>
 
@@ -43,14 +58,19 @@ export default {
   font-size: 0;
   cursor: pointer;
 
-  .el-avatar img {
-    vertical-align: middle;
-  }
+  .userinfo {
+    display: inline-block;
+    height: 30px;
 
-  .name {
-    vertical-align: top;
-    font-size: 14px;
-    margin-left: 10px;
+    .el-avatar img {
+      vertical-align: middle;
+    }
+
+    .name {
+      vertical-align: top;
+      font-size: 14px;
+      margin-left: 10px;
+    }
   }
 }
 </style>

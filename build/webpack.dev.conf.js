@@ -69,6 +69,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         app.post('/api/modifyclassprogress', (req, res) => {
           res.json({ errno: 0, msg: '修改成功！' });
         }),
+        app.post('/api/modifyuserinfo', (req, res) => {
+          res.json({ errno: 0, msg: '修改成功！' });
+        }),
         app.get('/api/getMyStudentList', (req, res) => {
           res.json({
             errno: 0, msg: '', data: {

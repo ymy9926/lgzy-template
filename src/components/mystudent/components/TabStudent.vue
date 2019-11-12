@@ -155,7 +155,6 @@ export default {
 
     .center {
       flex: 1;
-      padding-top: 4px;
 
       .name {
         height: 22px;
@@ -166,6 +165,7 @@ export default {
       }
 
       .info {
+        margin-top: 5px;
         height: 20px;
         font-size: 14px;
         font-weight: 400;
